@@ -8,5 +8,5 @@ server.register(fastifyCors, {
 })
 
 server.listen({ host: '0.0.0.0', port: 8080 }, () => {
-  console.log('Server is running on port 3000')
+  console.log('Server is running on port 8080')
 })
