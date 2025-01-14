@@ -5,6 +5,7 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { uploadImageRoute } from './routes/upload-image'
 
 const server = fastify()
 
@@ -29,6 +30,8 @@ server.setErrorHandler((error, request, reply) => {
 server.register(fastifyCors, {
   origin: '*',
 })
+
+server.register(uploadImageRoute)
 
 server.listen({ host: '0.0.0.0', port: 8080 }, () => {
   console.log('Server is running on port 8080')
