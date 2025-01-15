@@ -1,5 +1,6 @@
 import { db } from '@/infra/db';
 import { schema } from '@/infra/db/schemas';
+import { uploadFileToStorage } from '@/infra/storage/upload-file-to-storage';
 import { makeLeft, makeRight, type Either } from '@/shared/either';
 import { Readable } from 'node:stream';
 import { z } from 'zod';
@@ -25,13 +26,18 @@ export async function uploadImage(
     return makeLeft(new InvalidFileFormat());
   }
 
-  // TODO: Upload the image to a cloudflare R2
+  const { key, url } = await uploadFileToStorage({
+    folder: 'images',
+    fileName,
+    contentType,
+    contentStream,
+  });
 
   await db.insert(schema.uploads).values({
     name: fileName,
-    remoteKey: fileName,
-    remoteUrl: fileName,
+    remoteKey: key,
+    remoteUrl: url,
   });
 
-  return makeRight({ url: '123' });
+  return makeRight({ url });
 }
