@@ -8,6 +8,8 @@ import {
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod';
+import { exportUploadsRoute } from './routes/export-uploads';
+import { getUploadRoute } from './routes/get-uploads';
 import { uploadImageRoute } from './routes/upload-image';
 import { transformSwaggerSchema } from './transform-swagger-schema';
 
@@ -35,8 +37,6 @@ server.register(fastifyCors, {
   origin: '*',
 });
 
-server.register(fastifyMultipart);
-server.register(fastifySwaggerUi);
 server.register(fastifySwagger, {
   openapi: {
     info: {
@@ -47,8 +47,13 @@ server.register(fastifySwagger, {
   transform: transformSwaggerSchema,
 });
 
-server.register(uploadImageRoute);
+server.register(fastifyMultipart);
+server.register(fastifySwaggerUi);
 
-server.listen({ host: '0.0.0.0', port: 8080 }, () => {
-  console.log('Server is running on port 8080');
-});
+server.register(uploadImageRoute);
+server.register(getUploadRoute);
+server.register(exportUploadsRoute);
+
+server.listen({ host: '0.0.0.0', port: 8080 }, () =>
+  console.log('Server is running on http://localhost:8080')
+);
