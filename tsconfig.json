@@ -4,6 +4,7 @@
 
   "compilerOptions": {
     "lib": ["es2023"],
+    "outDir": "./dist",
     "module": "ESNext",
     "target": "ESNext",
 
