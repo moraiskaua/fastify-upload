@@ -20,7 +20,7 @@ COPY --from=dependencies /usr/src/app/node_modules ./node_modules
 RUN pnpm build
 RUN pnpm prune --prod
 
-FROM gcr.dev/chainguard/node:latest AS deploy
+FROM cgr.dev/chainguard/node:latest AS deploy
 
 WORKDIR /usr/src/app
 
