@@ -10,6 +10,7 @@ import {
 } from 'fastify-type-provider-zod';
 import { exportUploadsRoute } from './routes/export-uploads';
 import { getUploadRoute } from './routes/get-uploads';
+import { healthCheckRoute } from './routes/health';
 import { uploadImageRoute } from './routes/upload-image';
 import { transformSwaggerSchema } from './transform-swagger-schema';
 
@@ -53,6 +54,7 @@ server.register(fastifySwaggerUi);
 server.register(uploadImageRoute);
 server.register(getUploadRoute);
 server.register(exportUploadsRoute);
+server.register(healthCheckRoute);
 
 server.listen({ host: '0.0.0.0', port: 8080 }, () =>
   console.log('Server is running on http://localhost:8080')
